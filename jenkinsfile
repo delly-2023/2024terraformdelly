@@ -7,7 +7,12 @@ pipeline {
         
             stage('Checkout') {
                 steps {
-                    git branch: 'main', credentialsId: 'me', url: ''
+                    git branch: 'main', credentialsId: 'me', url: 'https://github.com/delly-2023/2024terraformdelly.git'
+                }
+            }
+            stage('terraform format check') {
+                steps{ 
+                    sh 'terraform fmt'
                 }
             }
             stage ("terraform init") {
@@ -15,7 +20,7 @@ pipeline {
                     sh ('terraform init')
                 }
             }
-            stage ("terraform Action") {
+            stage ("terraform apply") {
                 steps {
                     // echo "Terraform action is –> ${action}"
                     sh 'terraform apply --auto-approve'
